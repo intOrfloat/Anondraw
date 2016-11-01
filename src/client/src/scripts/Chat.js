@@ -234,7 +234,18 @@ Chat.prototype.emotesHash = {
 };
 
 Chat.prototype.urlRegex = /(((http|ftp)s?):\/\/)?([\d\w]+\.)+[\d\w]{2,}(\/\S+)?/.
-Chat.prototype.coordinateRegex = /\d*[,| |x]?[ ]?\d*/
+
+Chat.prototype.coordinateRegex = /\d\d*[,\sxX][\s*{0,4}]?\d\d*/
+// \d\d* match atleast 1 number then every number right after that if they exists
+// [,\sxX] match atleast one of the following: , or space or x or X
+// [\s*{0,4}]? match 0 to 4 consequtive spaces if they exist
+// matches:
+// 4444x 5555y
+// 4444X5555
+// 4444, 5555
+// 4444 5555
+// 4444   5555
+// (4444,5555)
 
 Chat.prototype.addMessage = function addMessage (user, message) {
 	var messageDom = this.messagesDom.appendChild(document.createElement("div"));
@@ -278,6 +289,19 @@ Chat.prototype.addElementAsMessage = function addElementAsMessage (elem) {
 };
 
 Chat.prototype.addMessageToDom = function addMessageToDom (messageDom, message) {
+	var coor = '(6685, 77)';
+
+	var matches = coor.match(/\d\d*[,\sxX][\s*]?\d\d*/);
+	console.log(matches);
+
+	if(matches){
+		var xcoor = matches[0].match(/\d*/);
+		console.log(firstcoor);
+
+		var ycoor = matches[0].match(/\d*$/);
+		console.log(lastcoor)
+	}
+
 	//find all matches of url with spaces and shit
 	var matches = '15524, 42142'.match(coordinateRegex); // find all matches
 	for (var k = 0; k < matches.length; k++) {
