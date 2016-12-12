@@ -831,6 +831,7 @@ Protocol.prototype.bindIO = function bindIO () {
 				hiddenContext.font = drawing.size + "pt Verdana, Geneva, sans-serif";
 				var textWidth = hiddenContext.measureText(drawing.text).width;
 				drawing.x1 = drawing.x + textWidth;
+				protocol.informClient(socket, "Text Tool");
 			}
 			var objects = protocol.satObjectsFromBrush(
 					[drawing.x, drawing.y],
@@ -845,6 +846,7 @@ Protocol.prototype.bindIO = function bindIO () {
 				callback(regionData);
 				return;
 			}
+			protocol.informClient(socket, "drawing.x:" + drawing.x + " drawing.y:" + drawing.y + " drawing.x1:" + drawing.x1 + " drawing.y1:" + drawing.y1);
 
 			// If we aren't in a private room, check our ink
 			if (socket.room.indexOf("private_") !== 0 && socket.room.indexOf("game_") !== 0 
