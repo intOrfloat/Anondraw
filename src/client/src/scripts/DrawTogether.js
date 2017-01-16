@@ -1927,6 +1927,15 @@ DrawTogether.prototype.insertOneRegionToDom = function insertOneRegionToDom(owne
 	
 	var regionBorderPermissionsButton = regionContainer.appendChild(document.createElement("div"));
 	regionBorderPermissionsButton.className = "coords-button reg-border-button";
+	regionBorderPermissionsButton.addEventListener("click", function (e) {
+		var regionListIndex = regionEditPermissionsButton.parentNode.dataset.index;
+
+		if(regionListIndex && this.myRegions[regionListIndex]){
+			console.log(this.myRegions[regionListIndex].minX, this.myRegions[regionListIndex].minY, this.myRegions[regionListIndex].maxX, this.myRegions[regionListIndex].maxY);
+				
+		}
+	
+	}.bind(this));
 	
 	var permissionsButtonImage = regionBorderPermissionsButton.appendChild(document.createElement("img"));
 	permissionsButtonImage.src = "images/icons/eye.png";

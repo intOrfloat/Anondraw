@@ -1118,7 +1118,7 @@ input.paint-texttool {
 .reg-border-button img {
   vertical-align:middle;
   border: white;
-  border-style: double;
+  border-style: dotted;
 }
 
 .reg-editpermissions-button {
