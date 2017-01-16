@@ -1937,6 +1937,9 @@ DrawTogether.prototype.insertOneRegionToDom = function insertOneRegionToDom(owne
 			var width = this.myRegions[regionListIndex].maxX - this.myRegions[regionListIndex].minX;
 			var height = this.myRegions[regionListIndex].maxY - this.myRegions[regionListIndex].minY;
 			console.log(minX,maxY,width,height);
+			drawTogether.paint.effectsCanvasCtx.beginPath();
+			drawTogether.paint.effectsCanvasCtx.lineWidth="6";
+			drawTogether.paint.effectsCanvasCtx.strokeStyle="red";
 			drawTogether.paint.effectsCanvasCtx.rect(minX, minY, width, height)
 			drawTogether.paint.effectsCanvasCtx.stroke();
 		}
