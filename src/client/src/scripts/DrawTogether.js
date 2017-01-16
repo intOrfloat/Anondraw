@@ -1931,8 +1931,14 @@ DrawTogether.prototype.insertOneRegionToDom = function insertOneRegionToDom(owne
 		var regionListIndex = regionEditPermissionsButton.parentNode.dataset.index;
 
 		if(regionListIndex && this.myRegions[regionListIndex]){
-			console.log(this.myRegions[regionListIndex].minX, this.myRegions[regionListIndex].minY, this.myRegions[regionListIndex].maxX, this.myRegions[regionListIndex].maxY);
-				
+			
+			var minX = this.myRegions[regionListIndex].minX;
+			var maxY = this.myRegions[regionListIndex].maxY;
+			var width = this.myRegions[regionListIndex].maxX - this.myRegions[regionListIndex].minX;
+			var height = this.myRegions[regionListIndex].maxY - this.myRegions[regionListIndex].minY;
+			console.log(minX,maxY,width,height);
+			drawTogether.paint.effectsCanvasCtx.rect(minX, minY, width, height)
+			drawTogether.paint.effectsCanvasCtx.stroke();
 		}
 	
 	}.bind(this));
