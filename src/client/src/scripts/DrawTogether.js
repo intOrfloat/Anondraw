@@ -1923,11 +1923,19 @@ DrawTogether.prototype.insertOneRegionToDom = function insertOneRegionToDom(owne
 
 		this.moveScreenToPosition([x,y],0);
 	
-	}.bind(this));	
+	}.bind(this));
+	
+	var regionBorderPermissionsButton = regionContainer.appendChild(document.createElement("div"));
+	regionBorderPermissionsButton.className = "coords-button reg-border-button";
+	
+	var permissionsButtonImage = regionBorderPermissionsButton.appendChild(document.createElement("img"));
+	permissionsButtonImage.src = "images/icons/eye.png";
+	permissionsButtonImage.alt = "Toggle Region Border Visibility";
+	permissionsButtonImage.title = "Toggle Region Border Visibility";
 
 	var regionEditPermissionsButton = regionContainer.appendChild(document.createElement("div"));
 	regionEditPermissionsButton.className = "coords-button reg-editpermissions-button";
-	//regionEditPermissionsButton.textContent = "Permissions...";
+
 	regionEditPermissionsButton.addEventListener("click", function (e) {
 		var regionListIndex = regionEditPermissionsButton.parentNode.dataset.index;
 

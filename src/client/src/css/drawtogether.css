@@ -1110,6 +1110,15 @@ input.paint-texttool {
   min-width: 18em;
 }
 
+.reg-border-button {
+  display: inline-block;
+  min-width: 0px;
+}
+
+.reg-border-button img {
+  vertical-align:middle;
+}
+
 .reg-editpermissions-button {
   display: inline-block;
   min-width: 0px;
