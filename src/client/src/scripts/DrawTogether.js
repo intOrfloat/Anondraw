@@ -2709,7 +2709,7 @@ DrawTogether.prototype.applyCanvasSettings = function applyCanvasSettings () {
 			if(this.defaultCanvasSettings[k].type != "boolean") continue;
 			var value = localStorage.getItem("quicksettings-" + this.defaultCanvasSettings[k].title)
 			
-			if( value === null) ) continue;
+			if( value === null) continue;
 			
 			value = value === "true"; // convert "false" string to boolean
 			
