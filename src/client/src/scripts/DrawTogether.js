@@ -2707,10 +2707,16 @@ DrawTogether.prototype.createRegionPermissionsWindow = function createRegionPerm
 DrawTogether.prototype.applyCanvasSettings = function applyCanvasSettings () {
 	for (var k = 0; k < this.defaultCanvasSettings.length; k++){
 			if(this.defaultCanvasSettings[k].type != "boolean") continue;
+			var value = localStorage.getItem("quicksettings-" + this.defaultCanvasSettings[k].title)
 			
-			var value = localStorage.getItem("quicksettings-" + this.defaultCanvasSettings[k].title) === "true";
+			if( value === null) ) continue;
 			
+			value = value === "true"; // convert "false" string to boolean
 			
+			if( value && $('.' + this.defaultCanvasSettings[k].classname).length === 0) { // set to true but canvas already gone
+				this.canvasSettings._controls[this.defaultCanvasSettings[k].title].container.appendChild(document.createTextNode('\u26a0 refresh required'));
+				continue;
+			}
 			if(!value)
 				$('.' + this.defaultCanvasSettings[k].classname).remove();
 		}
