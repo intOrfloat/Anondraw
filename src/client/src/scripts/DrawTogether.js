@@ -2714,7 +2714,8 @@ DrawTogether.prototype.applyCanvasSettings = function applyCanvasSettings () {
 			value = value === "true"; // convert "false" string to boolean
 			
 			if( value && $('.' + this.defaultCanvasSettings[k].classname).length === 0) { // set to true but canvas already gone
-				this.canvasSettings._controls[this.defaultCanvasSettings[k].title].container.appendChild(document.createTextNode('\u26a0 refresh required'));
+				this.canvasSettings._titleBar.textContent = "\u26a0 Refresh required \u26a0";
+				this.canvasSettings._titleBar.style.background = "red"
 				continue;
 			}
 			if(!value)
