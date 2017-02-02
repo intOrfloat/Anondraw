@@ -206,30 +206,37 @@ DrawTogether.prototype.defaultVideoExportSettings = [{
 
 DrawTogether.prototype.defaultCanvasSettings = [{
 		title: "Background canvas visibility",
+		classname: "paint-canvas-background",
 		type: "boolean",
 		value: true
 	}, {
 		title: "Public canvas visibility",
+		classname: "paint-canvas-public",
 		type: "boolean",
 		value: true
 	}, {
 		title: "Frames canvas visibility",
+		classname: "paint-canvas-frames",
 		type: "boolean",
 		value: true
 	}, {
 		title: "Local canvas visibility",
+		classname: "paint-canvas-local",
 		type: "boolean",
 		value: true
 	}, {
 		title: "Paths canvas visibility",
+		classname: "paint-canvas-paths",
 		type: "boolean",
 		value: true
 	}, {
 		title: "User interaction canvas visibility",
+		classname: "paint-canvas-userinteraction",
 		type: "boolean",
 		value: true
 	}, {
 		title: "Effect canvas visibility",
+		classname: "paint-canvas-effect",
 		type: "boolean",
 		value: true
 }];
@@ -2739,6 +2746,21 @@ DrawTogether.prototype.createSettingsWindow = function createSettingsWindow () {
 		this.canvasSettings.addControl(this.defaultCanvasSettings[k]);
 	}
 	
+	this.canvasSettings.addButton("Apply", function () {
+		for (var k = 0; k < this.defaultCanvasSettings.length; k++){
+			if(this.defaultCanvasSettings[k].type != "boolean") continue;
+			
+			var value = this.canvasSettings.getBoolean(this.defaultCanvasSettings[k].title)
+			
+			if( value && $('.' + this.defaultCanvasSettings[k].classname).length === 0) {
+				this.canvasSettings._controls[this.defaultCanvasSettings[k].title].container.appendChild(document.createTextNode('\u26a0 refresh required'));
+				continue;
+			}
+			if(!value)
+				$('.' + this.defaultCanvasSettings[k].classname).remove();
+		}
+	}.bind(this));
+	
 	this.canvasSettings.addButton("Close", function () {
 		this.canvasSettings.hide();
 	}.bind(this));
@@ -2768,6 +2790,11 @@ DrawTogether.prototype.createSettingsWindow = function createSettingsWindow () {
 
 	advancedOptions.addButton("Generate grid", function () {
 		this.openGenerateGridWindow();
+		advancedOptions.hide();
+	}.bind(this));
+	
+	advancedOptions.addButton("Open advanced canvas settings", function () {
+		this.canvasSettings.show();
 		advancedOptions.hide();
 	}.bind(this));
 	
