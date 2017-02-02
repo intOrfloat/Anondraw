@@ -7,6 +7,9 @@ function DrawTogether (container, settings, emotesHash) {
 	this.userSettings.setDraggable(false);
 	this.userSettings.setCollapsible(false);
 	
+	this.canvasSettings = QuickSettings.create(50, 50, "Canvas settings");
+	this.canvasSettings.hide();
+	
 	this.videoExportSettings = QuickSettings.create(50, 50, "Video export settings");
 	this.videoExportSettings.hide();
 
@@ -199,6 +202,36 @@ DrawTogether.prototype.defaultVideoExportSettings = [{
 		max: 3600,
 		step: 1,
 		value: 0
+}];
+
+DrawTogether.prototype.defaultCanvasSettings = [{
+		title: "Background canvas visibility",
+		type: "boolean",
+		value: true
+	}, {
+		title: "Public canvas visibility",
+		type: "boolean",
+		value: true
+	}, {
+		title: "Frames canvas visibility",
+		type: "boolean",
+		value: true
+	}, {
+		title: "Local canvas visibility",
+		type: "boolean",
+		value: true
+	}, {
+		title: "Paths canvas visibility",
+		type: "boolean",
+		value: true
+	}, {
+		title: "User interaction canvas visibility",
+		type: "boolean",
+		value: true
+	}, {
+		title: "Effect canvas visibility",
+		type: "boolean",
+		value: true
 }];
 
 DrawTogether.prototype.drawingTypes = ["line", "brush", "block"];
@@ -2700,6 +2733,14 @@ DrawTogether.prototype.createSettingsWindow = function createSettingsWindow () {
 	
 	this.videoExportSettings.addButton("Close", function () {
 		this.videoExportSettings.hide();
+	}.bind(this));
+	
+	for (var k = 0; k < this.defaultCanvasSettings.length; k++) {
+		this.canvasSettings.addControl(this.defaultCanvasSettings[k]);
+	}
+	
+	this.canvasSettings.addButton("Close", function () {
+		this.canvasSettings.hide();
 	}.bind(this));
 
 	var advancedOptions = QuickSettings.create(30, 10, "Advanced options");
