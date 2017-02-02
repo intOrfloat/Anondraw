@@ -1511,6 +1511,7 @@ DrawTogether.prototype.createDrawZone = function createDrawZone () {
 	framesButtonImage.title = "Open Frames Manager";
 	
 	this.createFramesManager();
+	this.applyCanvasSettings();
 };
 
 DrawTogether.prototype.createFramesManager = function createFramesManager () {
@@ -2703,6 +2704,21 @@ DrawTogether.prototype.createRegionPermissionsWindow = function createRegionPerm
 
 };
 
+DrawTogether.prototype.applyCanvasSettings = function applyCanvasSettings () {
+	for (var k = 0; k < this.defaultCanvasSettings.length; k++){
+			if(this.defaultCanvasSettings[k].type != "boolean") continue;
+			
+			var value = localStorage.getItem("quicksettings-" + this.defaultCanvasSettings[k].title)
+			
+			if( value && $('.' + this.defaultCanvasSettings[k].classname).length === 0) {
+				this.canvasSettings._controls[this.defaultCanvasSettings[k].title].container.appendChild(document.createTextNode('\u26a0 refresh required'));
+				continue;
+			}
+			if(!value)
+				$('.' + this.defaultCanvasSettings[k].classname).remove();
+		}
+};
+
 DrawTogether.prototype.createSettingsWindow = function createSettingsWindow () {
 	if (this.settingsWindow)
 		this.settingsWindow.parentNode.removeChild(this.settingsWindow);
@@ -2747,18 +2763,7 @@ DrawTogether.prototype.createSettingsWindow = function createSettingsWindow () {
 	}
 	
 	this.canvasSettings.addButton("Apply", function () {
-		for (var k = 0; k < this.defaultCanvasSettings.length; k++){
-			if(this.defaultCanvasSettings[k].type != "boolean") continue;
-			
-			var value = this.canvasSettings.getBoolean(this.defaultCanvasSettings[k].title)
-			
-			if( value && $('.' + this.defaultCanvasSettings[k].classname).length === 0) {
-				this.canvasSettings._controls[this.defaultCanvasSettings[k].title].container.appendChild(document.createTextNode('\u26a0 refresh required'));
-				continue;
-			}
-			if(!value)
-				$('.' + this.defaultCanvasSettings[k].classname).remove();
-		}
+		this.applyCanvasSettings();
 	}.bind(this));
 	
 	this.canvasSettings.addButton("Close", function () {
