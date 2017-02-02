@@ -9,6 +9,7 @@ function DrawTogether (container, settings, emotesHash) {
 	
 	this.canvasSettings = QuickSettings.create(50, 50, "Canvas settings");
 	this.canvasSettings.hide();
+	this.backgroundHidden = false;
 	
 	this.videoExportSettings = QuickSettings.create(50, 50, "Video export settings");
 	this.videoExportSettings.hide();
@@ -1312,6 +1313,8 @@ DrawTogether.prototype.createDrawZone = function createDrawZone () {
 	this.setLoadImage();
 
 	this.paint.background.requestUserChunk = function requestUserChunk (chunkX, chunkY, callback, time) {
+		if(this.backgroundHidden) return;
+		
 		var image = new Image();
 		var time = time || 0;
 		time += 5000 * Math.random() + 2500;
@@ -2718,9 +2721,13 @@ DrawTogether.prototype.applyCanvasSettings = function applyCanvasSettings () {
 				this.canvasSettings._titleBar.style.background = "red"
 				continue;
 			}
-			if(!value)
+			if(!value){
 				$('.' + this.defaultCanvasSettings[k].classname).remove();
+				if(this.defaultCanvasSettings[k].classname === "paint-canvas-background")
+					this.backgroundHidden = true;
+			}
 		}
+	
 };
 
 DrawTogether.prototype.createSettingsWindow = function createSettingsWindow () {
