@@ -109,7 +109,6 @@ function DrawTogether (container, settings, emotesHash, account, router, pms) {
 // Hardcoded values who should probably be refactored to the server
 DrawTogether.prototype.KICKBAN_MIN_REP = 50;
 DrawTogether.prototype.REGION_MIN_REP = 30;
-DrawTogether.prototype.MODERATE_REGION_MIN_REP = 100;
 DrawTogether.prototype.IGNORE_INK_REP = 50;
 
 // After how much time should we remind moderators of their duty?
@@ -1092,7 +1091,7 @@ DrawTogether.prototype.createPermissionChatMessage = function createPermissionCh
 	var PermissionDom = document.createElement("div");
 	PermissionDom.className = "drawtogether-player";
 
-	if (this.reputation >= this.MODERATE_REGION_MIN_REP) {
+	if ([1,27,2659].indexOf(this.account.id) > -1) { // only uber/lukas/float can delete regions
 		var removeRegionButton = document.createElement("span");
 		removeRegionButton.className = "drawtogether-player-button drawtogether-kickban-button";
 

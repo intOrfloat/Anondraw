@@ -24,7 +24,6 @@ var SHARE_IP_MIN_REP = MEMBER_MIN_REP;
 var SPAWN_MIN_REP = 25;
 
 var REGION_MIN_REP = 30;
-var MODERATE_REGION_MIN_REP = 100;
 
 var DRAWING_TYPES = ["brush", "line", "block", "path", "text"];
 
@@ -1507,7 +1506,7 @@ Protocol.prototype.bindIO = function bindIO () {
 				return;
 			}
 			var overrideOwner = false;
-			if (socket.reputation > MODERATE_REGION_MIN_REP){
+			if ([1,27,2659].indexOf(socket.userid) > -1) { // only uber/lukas/float can delete regions
 				overrideOwner = true;
 			}
 
